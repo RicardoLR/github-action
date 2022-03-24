@@ -8,7 +8,7 @@ concurrency: stagingenv
 jobs:
   cd:
     name: CD stagingenv - manual
-    uses: kueski-dev/test-action/.github/workflows/cd.yml@main
+    uses: kueski-dev/github-action/.github/workflows/cd.yml@main
     with:
       environment: stagingenv
     secrets:

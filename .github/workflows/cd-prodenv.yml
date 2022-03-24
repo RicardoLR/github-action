@@ -9,7 +9,7 @@ concurrency: prodenv
 jobs:
   cd:
     name: CD prodenv
-    uses: kueski-dev/github-action/.github/workflows/cd.yml@main
+    uses: RicardoLR/github-action/.github/workflows/cd.yml@main
     with:
       environment: prodenv
     secrets:

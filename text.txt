@@ -1,2 +1,6 @@
 ...
 ...
+
+importante en Github action
+
+POC con workflow_call crea problemas fuera de main o.o

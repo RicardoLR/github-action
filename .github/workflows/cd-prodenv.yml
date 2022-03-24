@@ -12,7 +12,7 @@ jobs:
     uses: RicardoLR/github-action/.github/workflows/cd.yml@main
     with:
       environment: prodenv
-      username: ricky prod
+      username: rickyprod
     secrets:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     permissions:

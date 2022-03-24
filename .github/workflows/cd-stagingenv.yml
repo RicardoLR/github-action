@@ -12,7 +12,8 @@ jobs:
     uses: RicardoLR/github-action/.github/workflows/cd.yml@main
     with:
       environment: stagingenv
-      # accountid: 582878636189
+      accountid: 582878636189
+      username: ricprod
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       OTHER_SECRET_URL: ${{ secrets.OTHER_SECRET_URL }}

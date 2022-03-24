@@ -3,6 +3,9 @@ name: CD
 on:
   workflow_call:
     inputs:
+      image_name:
+        required: true
+        type: string
       environment:
         description: 'The environment to deploy to'
         type: string

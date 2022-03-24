@@ -1,0 +1,54 @@
+name: CD
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: 'The environment to deploy to'
+        type: string
+        required: true
+    secrets:
+      SLACK_WEBHOOK_URL:
+        description: 'The Slack webhook url'
+        required: true
+
+
+jobs:
+
+  print-username:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print the input name to STDOUT
+        run: echo The username is ${{ inputs.username }}
+
+  cd:
+    name: CD
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Print the input environment to STDOUT
+        run: echo The environment is ${{ inputs.environment }}
+
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "attachments": [
+                  {
+                      "color": "${{ job.status == 'success' && 'good' || 'danger' }}",
+                      "pretext": "Workflow completed",
+                      "text": "*Service:* `nombre-de-mi-repo`\n*TextitoCustom:* The username is ${{ inputs.username }}\n*Status:* ${{ job.status }}\n*Workflow name:* ${{ github.workflow }}\n*Environment:* `${{ inputs.environment }}`\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                  }
+              ]
+            }
+

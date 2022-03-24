@@ -1,0 +1,119 @@
+
+# Solo como referencia previa
+
+# name: CD
+
+# # on: [pull_request, push] 
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+#   workflow_dispatch:
+  
+#   workflow_call:
+#     inputs:
+#       environment:
+#         description: 'The environment to deploy to'
+#         type: string
+#         required: true
+#     secrets:
+#       SLACK_WEBHOOK_URL:
+#         description: 'The Slack webhook url'
+#         required: true
+
+# # permissions:
+# #   id-token: write
+# #   contents: write
+# #   pull-requests: write
+  
+# jobs:
+
+# #   build:
+# #     name: build
+# #     permissions:
+# #       id-token: write
+# #       contents: write
+# #     runs-on: ubuntu-18.04
+# #     steps:
+# #       - name: Configure AWS Credentials
+# #         uses: aws-actions/configure-aws-credentials@master
+# #         with:
+# #           aws-region: us-east-1
+# #           role-to-assume: arn:aws:iam::612281548001:role/RoleFromTFForGitActions_SecondRepo
+# #           role-session-name: GithubActionsSession
+      
+# #       - run: aws sts get-caller-identity
+
+#     # Mensaje exitoso a channel sin environment (chanel staging, prod)
+
+#     # - name: Slack Notification
+#     #   uses: rtCamp/action-slack-notify@v2
+#     #   env:
+#     #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+#     # - name: Slack Notification
+#     #   uses: rtCamp/action-slack-notify@v2
+#     #   env:
+#     #     SLACK_CHANNEL: general
+#     #     SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+#     #     SLACK_ICON: https://github.com/rtCamp.png?size=48
+#     #     SLACK_MESSAGE: 'Post Content :rocket:'
+#     #     SLACK_TITLE: my Post Title on notification
+#     #     SLACK_USERNAME: rtCamp
+#     #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+
+#   cd:
+#     name: CD
+#     runs-on: ubuntu-latest
+#     environment: ${{ inputs.environment }}
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       # funcional sin ambientes
+
+#       # - name: Send Slack notification
+#       #   if: ${{ always() }}
+#       #   uses: slackapi/slack-github-action@v1.17.0
+#       #   env:
+#       #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#       #     SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+#       #   with:
+#       #     payload: |
+#       #       {
+#       #         "attachments": [
+#       #             {
+#       #                 "color": "${{ job.status == 'success' && 'good' || 'danger' }}",
+#       #                 "pretext": "Workflow completed",
+#       #                 "text": "*Service:* `data-spark-jobs`\n*Status:* ${{ job.status }}\n*Workflow name:* ${{ github.workflow }}\n*Environment:* `${{ inputs.environment }}`\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+#       #             }
+#       #         ]
+#       #       }
+
+#       - name: Send custom JSON data to Slack workflow
+#         id: slack
+#         uses: slackapi/slack-github-action@v1.18.0
+#         with:
+#           # For posting a rich message using Block Kit
+#           payload: |
+#             {
+#               "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+#               "blocks": [
+#                 {
+#                   "type": "section",
+#                   "text": {
+#                     "type": "mrkdwn",
+#                     "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }} env: ${{ inputs.environment }} secret ${{ secrets.SLACK_WEBHOOK_URL }}"
+#                   }
+#                 }
+#               ]
+#             }
+#         env:
+#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK

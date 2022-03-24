@@ -14,8 +14,8 @@ jobs:
       environment: prodenv
       # accountid: 104531838239
     secrets:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        OTHER_SECRET_URL: ${{ secrets.OTHER_SECRET_URL }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      OTHER_SECRET_URL: ${{ secrets.OTHER_SECRET_URL }}
     permissions:
       id-token: write
       contents: read

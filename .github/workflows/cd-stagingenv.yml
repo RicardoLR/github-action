@@ -12,7 +12,6 @@ jobs:
     uses: RicardoLR/github-action/.github/workflows/cd.yml@main
     with:
       environment: stagingenv
-      image_name: ricky
     secrets:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     permissions:

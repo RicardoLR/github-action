@@ -3,15 +3,13 @@ name: CD
 on:
   workflow_call:
     inputs:
-      image_name:
+      username:
+        description: 'A username passed from the caller workflow'
+        default: 'john-doe'
         required: true
         type: string
       environment:
         description: 'The environment to deploy to'
-        type: string
-        required: true
-      username:
-        description: 'A username passed from the caller workflow'
         type: string
         required: true
     secrets:

@@ -3,24 +3,38 @@ name: CD
 on:
   workflow_call:
     inputs:
+      username:
+        description: 'A username passed from the caller workflow'
+        default: 'john-doe'
+        required: true
+        type: string
       environment:
         description: 'The environment to deploy to'
+        type: string
+        required: true
+      accountid:
+        description: 'The account id of the AWS account to deploy to'
         type: string
         required: true
     secrets:
       SLACK_WEBHOOK_URL:
         description: 'The Slack webhook url'
         required: true
+      OTHER_SECRET_URL:
+        description: 'The other secret'
+        required: true
+
 
 
 jobs:
 
-  print-username:
-    runs-on: ubuntu-latest
+  # Otro job
+  # print-username:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Print the input name to STDOUT
-        run: echo The username is ${{ inputs.username }}
+  #   steps:
+  #     - name: Print the input name to STDOUT
+  #       run: echo The username is ${{ inputs.username }}
 
   cd:
     name: CD
@@ -33,6 +47,9 @@ jobs:
 
       - name: Print the input environment to STDOUT
         run: echo The environment is ${{ inputs.environment }}
+
+      - name: Print the input name to STDOUT
+        run: echo The username is ${{ inputs.username }}
 
       - name: Send custom JSON data to Slack workflow
         id: slack
@@ -47,7 +64,7 @@ jobs:
                   {
                       "color": "${{ job.status == 'success' && 'good' || 'danger' }}",
                       "pretext": "Workflow completed",
-                      "text": "*Service:* `nombre-de-mi-repo`\n*TextitoCustom:* The username is ${{ inputs.username }}\n*Status:* ${{ job.status }}\n*Workflow name:* ${{ github.workflow }}\n*Environment:* `${{ inputs.environment }}`\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      "text": "*Service:* `nombre-de-mi-repo`\n*TextitoCustom:* The username is ${{ inputs.username }} - secret ${{ secrets.OTHER_SECRET_URL }}\n*Status:* ${{ job.status }}\n*Workflow name:* ${{ github.workflow }}\n*Environment:* `${{ inputs.environment }}`\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                   }
               ]
             }

@@ -1,7 +1,8 @@
 name: CD stagingenv - manual
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ develop, feature/*, staging ]
 
 concurrency: stagingenv
 
@@ -11,8 +12,10 @@ jobs:
     uses: RicardoLR/github-action/.github/workflows/cd.yml@main
     with:
       environment: stagingenv
+      # accountid: 582878636189
     secrets:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      OTHER_SECRET_URL: ${{ secrets.OTHER_SECRET_URL }}
     permissions:
       id-token: write
       contents: read

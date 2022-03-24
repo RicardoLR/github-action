@@ -3,6 +3,7 @@ name: CD stagingenv - manual
 on:
   push:
     branches: [ develop, feature/*, staging ]
+  workflow_dispatch:
 
 concurrency: stagingenv
 

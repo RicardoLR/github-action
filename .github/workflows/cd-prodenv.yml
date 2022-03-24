@@ -12,9 +12,10 @@ jobs:
     uses: RicardoLR/github-action/.github/workflows/cd.yml@main
     with:
       environment: prodenv
-      account_id: 104531838239
+      accountid: 104531838239
     secrets:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        OTHER_SECRET_URL: ${{ secrets.OTHER_SECRET_URL }}
     permissions:
       id-token: write
       contents: read

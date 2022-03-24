@@ -12,7 +12,7 @@ on:
         description: 'The environment to deploy to'
         type: string
         required: true
-      account_id:
+      accountid:
         description: 'The account id of the AWS account to deploy to'
         type: string
         required: true
@@ -20,6 +20,8 @@ on:
       SLACK_WEBHOOK_URL:
         description: 'The Slack webhook url'
         required: true
+
+
 
 jobs:
 
@@ -59,7 +61,7 @@ jobs:
                   {
                       "color": "${{ job.status == 'success' && 'good' || 'danger' }}",
                       "pretext": "Workflow completed",
-                      "text": "*Service:* `nombre-de-mi-repo`\n*TextitoCustom:* The username is ${{ inputs.username }}\n*Status:* ${{ job.status }}\n*Workflow name:* ${{ github.workflow }}\n*Environment:* `${{ inputs.environment }}`\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      "text": "*Service:* `nombre-de-mi-repo`\n*TextitoCustom:* The username is ${{ inputs.username }} - secret ${{ secrets.OTHER_SECRET_URL }}\n*Status:* ${{ job.status }}\n*Workflow name:* ${{ github.workflow }}\n*Environment:* `${{ inputs.environment }}`\n*Branch:* ${{ github.ref_name }}\n*Commit:* ${{ github.sha }}\n*Run:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                   }
               ]
             }

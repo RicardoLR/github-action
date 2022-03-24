@@ -23,12 +23,13 @@ on:
 
 jobs:
 
-  print-username:
-    runs-on: ubuntu-latest
+  # Otro job
+  # print-username:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Print the input name to STDOUT
-        run: echo The username is ${{ inputs.username }}
+  #   steps:
+  #     - name: Print the input name to STDOUT
+  #       run: echo The username is ${{ inputs.username }}
 
   cd:
     name: CD
@@ -41,6 +42,9 @@ jobs:
 
       - name: Print the input environment to STDOUT
         run: echo The environment is ${{ inputs.environment }}
+
+      - name: Print the input name to STDOUT
+        run: echo The username is ${{ inputs.username }}
 
       - name: Send custom JSON data to Slack workflow
         id: slack

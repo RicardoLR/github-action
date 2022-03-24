@@ -20,6 +20,9 @@ on:
       SLACK_WEBHOOK_URL:
         description: 'The Slack webhook url'
         required: true
+      OTHER_SECRET_URL:
+        description: 'The other secret'
+        required: true
 
 
 

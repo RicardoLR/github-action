@@ -13,7 +13,7 @@ jobs:
     with:
       environment: stagingenv
       accountid: 582878636189
-      username: ricprod
+      username: ric staging
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       OTHER_SECRET_URL: ${{ secrets.OTHER_SECRET_URL }}

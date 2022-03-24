@@ -48,7 +48,7 @@ jobs:
         run: echo The environment is ${{ inputs.environment }}
 
       - name: Print the input name to STDOUT
-        run: echo The username is ${{ inputs.username }}
+        run: echo The username is ${{ inputs.username }} - id ${{ inputs.accountid }}
 
       - name: Send custom JSON data to Slack workflow
         id: slack
